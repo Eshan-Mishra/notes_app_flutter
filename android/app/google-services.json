@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "238647026188",
+    "project_id": "eshannotes",
+    "storage_bucket": "eshannotes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238647026188:android:ca8ccc77d2a28961624429",
+        "android_client_info": {
+          "package_name": "com.example.notes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3AlO6UTVPqPs3BuB4zvziaeDhAXOiWwU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
