@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer' as dev show log;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -57,16 +58,16 @@ class _LoginPageState extends State<LoginPage> {
                 final userCredential = await FirebaseAuth.instance
                     .signInWithEmailAndPassword(
                         email: email, password: password);
-                print(userCredential);
+                dev.log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
-                  print('User not found');
+                  dev.log('User not found');
                 } else if (e.code == 'wrong-password') {
-                  print('Wrong password');
+                  dev.log('Wrong password');
                 }
               }
             },
-            child: Text("Login"),
+            child: const Text("Login"),
           ),
           TextButton(
               onPressed: () {
