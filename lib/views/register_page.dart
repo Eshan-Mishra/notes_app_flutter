@@ -1,5 +1,7 @@
+import 'dart:developer' as dev show log;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/constants/routes.dart';
 
 class Registre extends StatefulWidget {
   const Registre({super.key});
@@ -55,12 +57,11 @@ class _RegistreState extends State<Registre> {
               final password = _password.text;
 
               try {
-                final UserCredential = FirebaseAuth.instance
+                 FirebaseAuth.instance
                     .createUserWithEmailAndPassword(
                         email: email, password: password);
-                print(UserCredential);
               } on FirebaseAuthException catch (e) {
-                print(e.message);
+                dev.log(e.code);
               }
             },
             child: const Text("register"),
@@ -68,7 +69,7 @@ class _RegistreState extends State<Registre> {
           TextButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/login/', (route) => false);
+                    .pushNamedAndRemoveUntil(loginroute, (route) => false);
               },
               child: const Text('already registered? login.'))
         ],

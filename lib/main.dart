@@ -5,6 +5,8 @@ import 'package:notes/views/login_page.dart';
 import 'package:notes/views/register_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:notes/constants/routes.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +19,9 @@ void main() {
     ),
     home: const HomePage(),
     routes: {
-      '/login/': (context) => const LoginPage(),
-      '/register/': (context) => const Registre(),
+      loginroute: (context) => const LoginPage(),
+      registerroute: (context) => const Registre(),
+      notesroute: (context) => const NotesView(),
     },
   ));
 }
@@ -78,7 +81,7 @@ class _NotesViewState extends State<NotesView> {
                     await FirebaseAuth.instance.signOut();
                     dev.log('user logged out ');
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/login/', (route) => false);
+                        .pushNamedAndRemoveUntil(loginroute, (route) => false);
                   }
                   break;
               }

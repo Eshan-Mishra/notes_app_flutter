@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' as dev show log;
 
+import 'package:notes/constants/routes.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -41,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
             keyboardType: TextInputType.emailAddress,
             autocorrect: false,
             enableSuggestions: false,
-            decoration: const InputDecoration(hintText: "Email"),
+            decoration: const InputDecoration(hintText: "Email"), 
           ),
           TextField(
             controller: _password,
@@ -55,10 +57,13 @@ class _LoginPageState extends State<LoginPage> {
               final email = _email.text;
               final password = _password.text;
               try {
-                final userCredential = await FirebaseAuth.instance
+                 await FirebaseAuth.instance
                     .signInWithEmailAndPassword(
                         email: email, password: password);
-                dev.log(userCredential.toString());
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/notes/',
+                  (route) => false,
+                );
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
                   dev.log('User not found');
@@ -72,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
           TextButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/register/', (route) => false);
+                    .pushNamedAndRemoveUntil(registerroute, (route) => false);
               },
               child: const Text("not registered yet? register here!")),
         ],
