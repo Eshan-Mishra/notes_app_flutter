@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes/views/login_page.dart';
 import 'package:notes/views/register_page.dart';
+import 'package:notes/views/verify_email.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:notes/constants/routes.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +22,7 @@ void main() {
       loginroute: (context) => const LoginPage(),
       registerroute: (context) => const Registre(),
       notesroute: (context) => const NotesView(),
+      verify_email:(context) => const VerifyEmailView(),
     },
   ));
 }
@@ -44,9 +45,9 @@ class HomePage extends StatelessWidget {
                 return const NotesView();
               }
             } else {
-              return const LoginPage();
+              return const VerifyEmailView();
             }
-            return const Text('done');
+            return const LoginPage();
           default:
             return const CircularProgressIndicator();
         }
@@ -77,12 +78,13 @@ class _NotesViewState extends State<NotesView> {
               switch (value) {
                 case MenuAction.logout:
                   final shouldlogOut = await showlogOutDialog(context);
-                  if (shouldlogOut) {
-                    await FirebaseAuth.instance.signOut();
-                    dev.log('user logged out ');
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(loginroute, (route) => false);
-                  }
+                  if (!mounted) return;
+                if (shouldlogOut) {
+                  await FirebaseAuth.instance.signOut();
+                  if (!mounted) return;
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(loginroute, (route) => false);
+                }
                   break;
               }
             },

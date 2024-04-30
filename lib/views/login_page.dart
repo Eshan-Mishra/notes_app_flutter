@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' as dev show log;
 
 import 'package:notes/constants/routes.dart';
+import 'package:notes/utilities/show_error_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             keyboardType: TextInputType.emailAddress,
             autocorrect: false,
             enableSuggestions: false,
-            decoration: const InputDecoration(hintText: "Email"), 
+            decoration: const InputDecoration(hintText: "Email"),
           ),
           TextField(
             controller: _password,
@@ -57,19 +58,25 @@ class _LoginPageState extends State<LoginPage> {
               final email = _email.text;
               final password = _password.text;
               try {
-                 await FirebaseAuth.instance
-                    .signInWithEmailAndPassword(
-                        email: email, password: password);
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: email, password: password);
                 Navigator.of(context).pushNamedAndRemoveUntil(
                   '/notes/',
                   (route) => false,
                 );
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
-                  dev.log('User not found');
+                  await showErrordialogBox(
+                    context,
+                    'user not found',
+                  );
                 } else if (e.code == 'wrong-password') {
                   dev.log('Wrong password');
+                } else {
+                  await showErrordialogBox(context, e.code);
                 }
+              } catch (e) {
+                await showErrordialogBox(context, e.toString());
               }
             },
             child: const Text("Login"),
