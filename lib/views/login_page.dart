@@ -60,10 +60,15 @@ class _LoginPageState extends State<LoginPage> {
               try {
                 await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: email, password: password);
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/notes/',
-                  (route) => false,
-                );
+                if (FirebaseAuth.instance.currentUser?.emailVerified??false) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/notes/',
+                    (route) => false,
+                  );
+                } else {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(verify_email, (route) => false);
+                }
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
                   await showErrordialogBox(
