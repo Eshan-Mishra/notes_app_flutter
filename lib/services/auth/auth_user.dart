@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 @immutable
 class AuthUser { 
-  final bool isEmailverified-;
+  final bool isEmailverified;
   const AuthUser(this.isEmailverified);
 
   factory AuthUser.fromFirebase(User user) => AuthUser(user.emailVerified);
