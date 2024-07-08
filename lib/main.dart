@@ -1,4 +1,4 @@
-import 'dart:developer' as dev show log;
+// import 'dart:developer' as dev show log;
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notes/views/login_page.dart';
@@ -79,18 +79,19 @@ class _NotesViewState extends State<NotesView> {
                 case MenuAction.logout:
                   final shouldlogOut = await showlogOutDialog(context);
                   if (!mounted) return;
-                if (shouldlogOut) {
-                  await FirebaseAuth.instance.signOut();
-                  if (!mounted) return;
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(loginroute, (route) => false);
-                }
+                  if (shouldlogOut) {
+                    await FirebaseAuth.instance.signOut();
+                    if (!mounted) return;
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(loginroute, (route) => false);
+                  }
                   break;
               }
             },
             itemBuilder: (context) {
               return const [
-                PopupMenuItem(value: MenuAction.logout, child: Text('logout'))
+                PopupMenuItem(value: MenuAction.logout, child: Text('logout')),
+                PopupMenuItem(child: Text("hello")),
               ];
             },
           )

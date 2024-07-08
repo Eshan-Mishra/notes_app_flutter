@@ -60,12 +60,13 @@ class _LoginPageState extends State<LoginPage> {
               try {
                 await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: email, password: password);
-                if (FirebaseAuth.instance.currentUser?.emailVerified??false) {
+                if (FirebaseAuth.instance.currentUser?.emailVerified ?? false) {
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/notes/',
+                    notesroute,
                     (route) => false,
                   );
                 } else {
+                  
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(verify_email, (route) => false);
                 }
@@ -76,7 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                     'user not found',
                   );
                 } else if (e.code == 'wrong-password') {
-                  dev.log('Wrong password');
+                  await showErrordialogBox(
+                    context,
+                    'wrong-password',
+                  );
                 } else {
                   await showErrordialogBox(context, e.code);
                 }
