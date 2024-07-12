@@ -1,16 +1,13 @@
+class InvalidCredentials implements Exception {}
 
-class InvalidCredentials implements Exception{
+class GenericExceptions implements Exception {}
 
+class UserNotLoggedIn implements Exception {}
 
-}
+class UserNotFound implements Exception {}
 
-class GenericExceptions implements Exception{
+class EmailAlreadyInUseAuthException implements Exception {}
 
-}
-
-class UserNotLoggedIn implements Exception{
+class InvalidEmailAuthException implements Exception {
   
-}
-class UserNotFound implements Exception{
-
 }

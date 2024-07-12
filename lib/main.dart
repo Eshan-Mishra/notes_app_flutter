@@ -21,7 +21,7 @@ void main() {
       loginroute: (context) => const LoginPage(),
       registerroute: (context) => const Registre(),
       notesroute: (context) => const NotesView(),
-      verify_email:(context) => const VerifyEmailView(),
+      verify_email: (context) => const VerifyEmailView(),
     },
   ));
 }
@@ -54,5 +54,3 @@ class HomePage extends StatelessWidget {
 }
 
 enum MenuAction { logout }
-
-

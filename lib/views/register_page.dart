@@ -1,5 +1,4 @@
 // import 'dart:developer' as dev show log;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/constants/routes.dart';
 import 'package:notes/services/auth/auth_exceptions.dart';
@@ -60,14 +59,22 @@ class _RegistreState extends State<Registre> {
               final password = _password.text;
 
               try {
-                AuthService.firebase()
+                // Make sure to await the createUser call
+                await AuthService.firebase()
                     .createUser(email: email, password: password);
-
                 await AuthService.firebase().sendEmailVerification();
                 Navigator.of(context).pushNamed(verify_email);
+              } on EmailAlreadyInUseAuthException {
+                // Handle the email already in use exception
+                await showErrordialogBox(context, 'Email already in use');
               } on GenericExceptions {
+                // Handle other generic exceptions
                 await showErrordialogBox(
-                    context, 'authentication error occured');
+                    context, 'An authentication error occurred');
+              } catch (e) {
+                // Handle any other exceptions that might occur
+                await showErrordialogBox(
+                    context, 'An unexpected error occurred');
               }
             },
             child: const Text("register"),

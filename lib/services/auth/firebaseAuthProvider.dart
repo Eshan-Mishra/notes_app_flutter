@@ -22,8 +22,10 @@ class FirebaseAuthProvider implements AuthProvider {
         throw UserNotLoggedIn();
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == "invalid-credentials") {
-        throw InvalidCredentials();
+      if (e.code == 'email-already-in-use') {
+        throw EmailAlreadyInUseAuthException();
+      } else if (e.code == 'invalid-email') {
+        throw InvalidEmailAuthException();
       } else {
         throw GenericExceptions();
       }
@@ -31,6 +33,7 @@ class FirebaseAuthProvider implements AuthProvider {
       throw GenericExceptions();
     }
   }
+
   @override
   Future<void> intialize() async {
     await Firebase.initializeApp(
@@ -90,5 +93,4 @@ class FirebaseAuthProvider implements AuthProvider {
       throw UserNotLoggedIn();
     }
   }
-
 }
