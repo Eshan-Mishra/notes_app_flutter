@@ -8,6 +8,5 @@ class UserNotFound implements Exception {}
 
 class EmailAlreadyInUseAuthException implements Exception {}
 
-class InvalidEmailAuthException implements Exception {
-  
-}
+class InvalidEmailAuthException implements Exception {}
+class WrongPasswordAuthexception implements Exception {}
