@@ -1,4 +1,3 @@
-// import 'dart:developer' as dev show log;
 import 'package:flutter/material.dart';
 import 'package:notes/services/auth/auth_services.dart';
 import 'package:notes/views/login_page.dart';
@@ -40,9 +39,9 @@ class HomePage extends StatelessWidget {
             if (user != null) {
               if (user.isEmailverified) {
                 return const NotesView();
-              }
-            } else {
+              }else {
               return const VerifyEmailView();
+            } 
             }
             return const LoginPage();
           default:
