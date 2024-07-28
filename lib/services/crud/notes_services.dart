@@ -70,7 +70,7 @@ class NotesService {
     }
   }
 
-  Future<DatabaseUser> getOrCreateUSer({required String email}) async {
+  Future<DatabaseUser> getOrCreateUser({required String email}) async {
     try {
       final user = await getUser(email: email);
       return user;
@@ -116,7 +116,11 @@ class NotesService {
     });
 
     final note = DataBaseNote(
-        id: noteId, userId: owner.id, text: text, isSyncedWithCloud: true);
+      id: noteId,
+      userId: owner.id,
+      text: text,
+      isSyncedWithCloud: true,
+    );
 
     _notes.add(note);
     _notesStreamController.add(_notes);

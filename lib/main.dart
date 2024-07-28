@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notes/services/auth/auth_services.dart';
 import 'package:notes/views/login_page.dart';
-import 'package:notes/views/notes_views.dart';
+import 'package:notes/views/notes/new_note_view.dart';
+import 'package:notes/views/notes/notes_views.dart';
 import 'package:notes/views/register_page.dart';
 import 'package:notes/views/verify_email.dart';
 import 'package:notes/constants/routes.dart';
@@ -21,6 +22,7 @@ void main() {
       registerroute: (context) => const Registre(),
       notesroute: (context) => const NotesView(),
       verify_email: (context) => const VerifyEmailView(),
+      newNoteRoute:(context)=> const NewNoteView(),
     },
   ));
 }

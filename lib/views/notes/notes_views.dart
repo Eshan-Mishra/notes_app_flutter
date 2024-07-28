@@ -34,6 +34,12 @@ class _NotesViewState extends State<NotesView> {
           title: const Text("main ui"),
           backgroundColor: Colors.blue,
           actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(newNoteRoute);
+              },
+              icon: const Icon(Icons.add),
+            ),
             PopupMenuButton<MenuAction>(
               onSelected: (value) async {
                 switch (value) {
@@ -60,12 +66,22 @@ class _NotesViewState extends State<NotesView> {
           ],
         ),
         body: FutureBuilder(
-            future: _notesService.getOrCreateUSer(email: userEmail),
+            future: _notesService.getOrCreateUser(email: userEmail),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
-               
                 case ConnectionState.done:
-                  return Text('Your notes will appear here');
+                  // print('User created or retrieved: ${snapshot.data}');
+                  return StreamBuilder(
+                      stream: _notesService.allnotes,
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          case ConnectionState.active:
+                            return const Text('waiting for notes');
+                          default:
+                            return const CircularProgressIndicator();
+                        }
+                      });
                 default:
                   return const CircularProgressIndicator();
               }
