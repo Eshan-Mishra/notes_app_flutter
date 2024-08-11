@@ -253,6 +253,8 @@ class DatabaseUser {
     required this.email,
   });
 
+
+
   DatabaseUser.fromRow(Map<String, Object?> map)
       : id = map[idColumn] as int,
         email = map[emailCloumn] as String;
